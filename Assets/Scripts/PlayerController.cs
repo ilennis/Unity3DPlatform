@@ -58,7 +58,9 @@ public class PlayerController : MonoBehaviour
     {
         camCurXRot += mouseDelta.y * lookSensitivity;
         camCurXRot = Mathf.Clamp(camCurXRot, minXLook, maxXLook); // 위에 반복해서 min/max 값 사이에 가능하도록 고정
+        
         cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0, 0); // rotation 값 - 는 마우스 값이랑 +, - 상반되어서.
+        
 
         transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensitivity, 0);
         
