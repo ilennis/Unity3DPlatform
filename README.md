@@ -10,3 +10,4 @@
 어려웠던 점: 
 - 3인칭에서 보는 방향으로 계속 이동하면 좋겠지만, 도중에 정해진 방향과 카메라 방향의 각도가 너무 커지면 카메라 방향을 무시하고 같은 방향으로 계속 이동합니다.
 - 이전에는 Waypoint의 Transform만 가지고 플랫폼 옮기려고 했는데, 이상하게도 GameObject로 가지고와야 되더라고요. GameObject.transform.position = transform waypoint1이 안되는 듯 하네요...
+- Interact()를 공용으로 하기 위해 IInteractable을 제작했는데, Debug.Log를 사용하는 기능은 잘 작동하나, Raycast를 이용해서 닿으면 Interact()를 불러오는게 안되네요. 

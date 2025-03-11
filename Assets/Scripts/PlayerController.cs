@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+interface IInteractable
+{
+    public void Interact();
+}
+
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
@@ -10,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpPower;
      private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
+    public LayerMask objectLayerMask;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -22,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private RaycastHit hi;
     private Ray ray;
     private GameObject rayObject;
-  
+    public float interactRange;
 
     private Rigidbody _rigidbody;
     // Start is called before the first frame update
@@ -121,5 +127,19 @@ public class PlayerController : MonoBehaviour
     {
         float speed = _rigidbody.velocity.magnitude;
         return speed;
+    }
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        
+            Ray r = new Ray(transform.position, transform.forward);
+            if(Physics.Raycast(r, out RaycastHit hitInfo, interactRange, objectLayerMask))
+            {
+                if(hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
+                {
+                    interactObj.Interact();
+                }
+            }
+        
     }
 }
